@@ -1,0 +1,14 @@
+.env
+.venv/
+venv/
+__pycache__/
+*.pyc
+.DS_Store
+
+# 데이터 파일 (용량 큼)
+data/*.parquet
+data/target_personas.json
+
+# 결과물 (재생성 가능)
+results/*.csv
+results/*.json
