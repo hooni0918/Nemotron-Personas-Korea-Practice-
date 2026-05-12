@@ -25,11 +25,14 @@ QUESTIONS_PATH = ROOT / "config" / "interview_questions.json"
 RESULTS_CSV = ROOT / "results" / "interview_responses.csv"
 RESULTS_JSON = ROOT / "results" / "interview_responses.json"
 
-# 싱글턴은 빠르고 저렴한 Flash, 멀티턴은 맥락 잘 기억하는 Pro
-MODEL_SINGLE_TURN = "gemini-2.0-flash-exp"
-MODEL_MULTI_TURN = "gemini-2.0-flash-exp"  # 비용 절약하려면 둘 다 Flash. Pro 쓰려면 "gemini-1.5-pro"
+# gemini-2.0-flash: 무료 분당 15회, 일일 1,500회. 2.5-flash(분당 10·일일 250)보다 6배 넉넉.
+# 응답 품질도 페르소나 인터뷰엔 충분.
+MODEL_SINGLE_TURN = "gemini-2.0-flash"
+MODEL_MULTI_TURN = "gemini-2.0-flash"
 
-MAX_WORKERS = 8  # 동시 호출 수. 무료 티어 RPM 한도에 맞춰 조정
+MAX_WORKERS = 5          # 동시 호출 수 (RPM 한도 고려)
+MAX_RETRIES = 4          # 429(quota) 만났을 때 재시도 횟수
+RETRY_BACKOFF = 20       # 첫 재시도 대기 시간(초). 매 재시도마다 2배씩 늘어남
 
 
 def build_system_prompt(persona: dict, service_context: str) -> str:
@@ -70,6 +73,25 @@ def build_system_prompt(persona: dict, service_context: str) -> str:
 답변은 2~4문장 정도로 간결하게, 그 인물답게 말하세요."""
 
 
+def _call_with_retry(callable_, *args, **kwargs):
+    """레이트 리밋(429)에 부딪히면 backoff하며 재시도. 다른 에러는 즉시 raise."""
+    wait = RETRY_BACKOFF
+    last_exc = None
+    for attempt in range(MAX_RETRIES + 1):
+        try:
+            return callable_(*args, **kwargs)
+        except Exception as e:
+            last_exc = e
+            msg = str(e).lower()
+            if "429" in str(e) or "quota" in msg or "resourceexhausted" in msg.replace(" ", ""):
+                if attempt < MAX_RETRIES:
+                    time.sleep(wait)
+                    wait *= 2
+                    continue
+            raise
+    raise last_exc  # 도달 안 함
+
+
 def interview_single_persona(persona: dict, questions: list, service_context: str) -> dict:
     """한 페르소나에 대해 모든 질문 실행."""
     system_prompt = build_system_prompt(persona, service_context)
@@ -93,7 +115,7 @@ def interview_single_persona(persona: dict, questions: list, service_context: st
                     MODEL_SINGLE_TURN,
                     system_instruction=system_prompt,
                 )
-                resp = model.generate_content(q["text"])
+                resp = _call_with_retry(model.generate_content, q["text"])
                 result["responses"].append({
                     "question_id": q_id,
                     "type": "single_turn",
@@ -109,7 +131,7 @@ def interview_single_persona(persona: dict, questions: list, service_context: st
                 )
                 chat = model.start_chat(history=[])
                 for turn_idx, turn_text in enumerate(q["turns"], start=1):
-                    resp = chat.send_message(turn_text)
+                    resp = _call_with_retry(chat.send_message, turn_text)
                     result["responses"].append({
                         "question_id": q_id,
                         "type": "multi_turn",
@@ -119,7 +141,7 @@ def interview_single_persona(persona: dict, questions: list, service_context: st
                     })
 
         except Exception as e:
-            # 페르소나 한 명 실패해도 나머지는 계속
+            # 재시도 후에도 실패하면 그 질문만 ERROR로 기록하고 다음으로
             result["responses"].append({
                 "question_id": q_id,
                 "type": q_type,
@@ -127,9 +149,6 @@ def interview_single_persona(persona: dict, questions: list, service_context: st
                 "question": "[ERROR]",
                 "answer": f"ERROR: {type(e).__name__}: {e}",
             })
-            # 레이트 리밋이면 잠시 대기
-            if "429" in str(e) or "quota" in str(e).lower():
-                time.sleep(10)
 
     return result
 
