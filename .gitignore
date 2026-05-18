@@ -9,6 +9,6 @@ __pycache__/
 data/*.parquet
 data/target_personas.json
 
-# 결과물 (재생성 가능)
-results/*.csv
-results/*.json
+# 결과물 (재생성 가능) — Notion 첨부용으로 공개 중. 필요 시 다시 ignore.
+# results/*.csv
+# results/*.json
