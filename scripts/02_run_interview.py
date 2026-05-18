@@ -25,10 +25,10 @@ QUESTIONS_PATH = ROOT / "config" / "interview_questions.json"
 RESULTS_CSV = ROOT / "results" / "interview_responses.csv"
 RESULTS_JSON = ROOT / "results" / "interview_responses.json"
 
-# gemini-2.0-flash: 무료 분당 15회, 일일 1,500회. 2.5-flash(분당 10·일일 250)보다 6배 넉넉.
-# 응답 품질도 페르소나 인터뷰엔 충분.
-MODEL_SINGLE_TURN = "gemini-2.0-flash"
-MODEL_MULTI_TURN = "gemini-2.0-flash"
+# gemini-2.5-flash-lite: 현역 모델 중 최저가($0.10/$0.40 per 1M tokens).
+# 페르소나 인터뷰 품질엔 충분하고 비용·한도 측면에서 가성비 최고.
+MODEL_SINGLE_TURN = "gemini-2.5-flash-lite"
+MODEL_MULTI_TURN = "gemini-2.5-flash-lite"
 
 MAX_WORKERS = 5          # 동시 호출 수 (RPM 한도 고려)
 MAX_RETRIES = 4          # 429(quota) 만났을 때 재시도 횟수
