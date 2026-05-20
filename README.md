@@ -24,14 +24,14 @@ parquet     target.json   responses     report.md
 
 각 회차의 입력(`service_concept` · `interview_questions` · `filter_config`)과 출력(`responses` · `analysis` · `SUMMARY`)은 `results/YYYY-MM-DD_v{n}_{label}/` 폴더에 함께 박제됨. 회차 인덱스: [`results/README.md`](./results/README.md)
 
-### 최신 회차 빠른 접근 — v2 place-scrap-personas (2026-05-20)
+### 최신 회차 빠른 접근 — v3 nemotron-matched (2026-05-20)
 
-- 📄 [**SUMMARY.md**](./results/2026-05-20_v2_place-scrap-personas/SUMMARY.md) — 페르소나 타입별 응답 분포 + MVP 기능 검증
-- 📊 [**analysis_report.md**](./results/2026-05-20_v2_place-scrap-personas/analysis_report.md) — 자동 진단 리포트
-- 📑 [**interview_responses.csv**](./results/2026-05-20_v2_place-scrap-personas/interview_responses.csv) — 285행 raw
-- 📋 [interview_questions.json](./results/2026-05-20_v2_place-scrap-personas/interview_questions.json) · [service_concept.md](./results/2026-05-20_v2_place-scrap-personas/service_concept.md) · [place_scrap_personas.json](./results/2026-05-20_v2_place-scrap-personas/place_scrap_personas.json) — 이 회차 입력 스냅샷
+- 📄 [**SUMMARY.md**](./results/2026-05-20_v3_nemotron-matched/SUMMARY.md) — 120명 라벨별 응답 분포 + MVP1 검증
+- 📊 [**analysis_report.md**](./results/2026-05-20_v3_nemotron-matched/analysis_report.md) — 자동 진단 리포트
+- 📑 [**interview_responses.csv**](./results/2026-05-20_v3_nemotron-matched/interview_responses.csv) — 2,280행 raw
+- 📋 [v3_match_config.json](./results/2026-05-20_v3_nemotron-matched/v3_match_config.json) · [place_scrap_personas_v3.json](./results/2026-05-20_v3_nemotron-matched/place_scrap_personas_v3.json) · [interview_questions.json](./results/2026-05-20_v3_nemotron-matched/interview_questions.json) — 이 회차 입력 스냅샷
 
-이전 회차: [v1 baseline](./results/2026-05-18_v1_baseline/SUMMARY.md)
+이전 회차: [v2 place-scrap-personas](./results/2026-05-20_v2_place-scrap-personas/SUMMARY.md) · [v1 baseline](./results/2026-05-18_v1_baseline/SUMMARY.md)
 
 ---
 
