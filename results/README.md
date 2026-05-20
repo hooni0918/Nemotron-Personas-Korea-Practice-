@@ -6,10 +6,25 @@
 
 | 회차 | 날짜 | 라벨 | 페르소나 | 질문×턴 | 핵심 발견 |
 |---|---|---|---|---|---|
+| [v3](./2026-05-20_v3_nemotron-matched/SUMMARY.md) | 2026-05-20 | nemotron-matched | **120명** (A40·B30·C50) × 1회 | 20×1 | 120명 중 **105명(87.5%)이 MVP1 "매우 편할"** 만장일치. 그룹 기능은 **A_marketer가 가장 강한 반응** (v2 발견 재현). |
 | [v2](./2026-05-20_v2_place-scrap-personas/SUMMARY.md) | 2026-05-20 | place-scrap-personas | 3 타입 × 5회 | 20×1 (Q11 누락) | PDF에서 의도한 3 타겟의 행동·페인 분화가 LLM에서 그대로 재현됨. MVP1 가치 검증. 그룹 기능은 의외로 **실행형 > 수집형**. |
 | [v1](./2026-05-18_v1_baseline/SUMMARY.md) | 2026-05-18 | baseline | 50명 | 8×11 | 경쟁자는 다른 앱이 아니라 **현재의 무료 워크플로우** (인스타+메모+네이버지도). Q2 모호 진단. |
 
 ## 회차별 파일 빠른 접근
+
+### v3 nemotron-matched (2026-05-20)
+
+- 📄 [**SUMMARY.md**](./2026-05-20_v3_nemotron-matched/SUMMARY.md) — 120명 라벨별 응답 분포 + MVP1 검증
+- **입력 스냅샷**
+  - [v3_match_config.json](./2026-05-20_v3_nemotron-matched/v3_match_config.json) — 라벨 키워드·샘플 사이즈
+  - [place_scrap_personas_v3.json](./2026-05-20_v3_nemotron-matched/place_scrap_personas_v3.json) — 추출된 120명
+  - [interview_questions.json](./2026-05-20_v3_nemotron-matched/interview_questions.json) — Q1-Q20 (v2와 동일)
+  - [service_concept.md](./2026-05-20_v3_nemotron-matched/service_concept.md) — 서비스 컨셉 (v2와 동일)
+- **출력**
+  - [analysis_report.md](./2026-05-20_v3_nemotron-matched/analysis_report.md) — 자동 진단 리포트
+  - [interview_responses.csv](./2026-05-20_v3_nemotron-matched/interview_responses.csv) — 2,280행 raw
+  - [interview_responses.json](./2026-05-20_v3_nemotron-matched/interview_responses.json) — 페르소나별 응답
+  - [analysis_report.json](./2026-05-20_v3_nemotron-matched/analysis_report.json) — 분석 raw
 
 ### v2 place-scrap-personas (2026-05-20)
 
