@@ -42,13 +42,23 @@
 - [ ] **Q5 응답 군집화**: "지도 뷰"가 매력적이라는 응답이 어떤 페르소나 군에서 강한지 (직업·연령·성별)
 - [ ] **타겟 분할 시뮬**: 남/여 · 20대/30대 · 서울/지방 분리 실행 → 어느 군이 더 강한 페인 호소하는지
 
-## 박제된 입력 (이 폴더 안)
+## 📂 파일 바로 보기
 
-- `service_concept.md` — 검증한 서비스 컨셉
-- `interview_questions.json` — 던진 질문지
-- `filter_config.json` — 페르소나 필터 조건
+### 입력 (이 회차에 사용한 설정 스냅샷)
 
-## 박제된 출력
+| 파일 | 내용 | 미리보기 | 다운로드 |
+|---|---|---|---|
+| `service_concept.md` | 검증한 서비스 컨셉 1-page | [GitHub](./service_concept.md) | [Raw](https://raw.githubusercontent.com/hooni0918/Nemotron-Personas-Korea-Practice-/main/results/2026-05-18_v1_baseline/service_concept.md) |
+| `interview_questions.json` | 던진 질문 8개 (Q7 멀티턴 4턴) | [GitHub](./interview_questions.json) | [Raw](https://raw.githubusercontent.com/hooni0918/Nemotron-Personas-Korea-Practice-/main/results/2026-05-18_v1_baseline/interview_questions.json) |
+| `filter_config.json` | 페르소나 필터 조건 (20~39세·수도권·seed=42) | [GitHub](./filter_config.json) | [Raw](https://raw.githubusercontent.com/hooni0918/Nemotron-Personas-Korea-Practice-/main/results/2026-05-18_v1_baseline/filter_config.json) |
 
-- `interview_responses.csv` / `.json` — 페르소나 응답 raw (550행)
-- `analysis_report.md` / `.json` — 자동 진단 결과
+### 출력 (시뮬레이션 결과)
+
+| 파일 | 크기 | 내용 | 미리보기 | 다운로드 |
+|---|---|---|---|---|
+| `interview_responses.csv` | 452KB · 550행 | 페르소나×질문×턴 raw (스프레드시트 분석용) | [GitHub 표뷰](./interview_responses.csv) | [Raw](https://raw.githubusercontent.com/hooni0918/Nemotron-Personas-Korea-Practice-/main/results/2026-05-18_v1_baseline/interview_responses.csv) |
+| `interview_responses.json` | 482KB | 페르소나별 전체 대화 (멀티턴 흐름 검수용) | [GitHub](./interview_responses.json) | [Raw](https://raw.githubusercontent.com/hooni0918/Nemotron-Personas-Korea-Practice-/main/results/2026-05-18_v1_baseline/interview_responses.json) |
+| `analysis_report.md` | 22KB | 사람 읽기용 진단 리포트 (질문별 응답·감성·진단·샘플 5건) | [GitHub](./analysis_report.md) | [Raw](https://raw.githubusercontent.com/hooni0918/Nemotron-Personas-Korea-Practice-/main/results/2026-05-18_v1_baseline/analysis_report.md) |
+| `analysis_report.json` | 24KB | 분석 raw (감성 분포·평균 길이·진단 플래그) | [GitHub](./analysis_report.json) | [Raw](https://raw.githubusercontent.com/hooni0918/Nemotron-Personas-Korea-Practice-/main/results/2026-05-18_v1_baseline/analysis_report.json) |
+
+> **빠른 길**: 가장 자주 볼 두 개 — [analysis_report.md](./analysis_report.md) (사람용 진단) · [interview_responses.csv](./interview_responses.csv) (GitHub이 CSV를 표로 자동 렌더링)

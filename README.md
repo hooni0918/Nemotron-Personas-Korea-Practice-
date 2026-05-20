@@ -22,7 +22,14 @@ parquet     target.json   responses     report.md
 
 ## 회차별 결과 아카이브
 
-각 회차의 입력(`service_concept` · `interview_questions` · `filter_config`)과 출력(`responses` · `analysis` · `SUMMARY`)은 `results/YYYY-MM-DD_v{n}_{label}/` 폴더에 함께 박제됨. 회차 인덱스는 [`results/README.md`](./results/README.md) 참고.
+각 회차의 입력(`service_concept` · `interview_questions` · `filter_config`)과 출력(`responses` · `analysis` · `SUMMARY`)은 `results/YYYY-MM-DD_v{n}_{label}/` 폴더에 함께 박제됨. 회차 인덱스: [`results/README.md`](./results/README.md)
+
+### 최신 회차 빠른 접근 — v1 baseline (2026-05-18)
+
+- 📄 [**SUMMARY.md**](./results/2026-05-18_v1_baseline/SUMMARY.md) — 가설·인사이트·다음 액션
+- 📊 [**analysis_report.md**](./results/2026-05-18_v1_baseline/analysis_report.md) — 사람용 진단 리포트
+- 📑 [**interview_responses.csv**](./results/2026-05-18_v1_baseline/interview_responses.csv) — 550행 raw (GitHub이 표로 렌더링)
+- 📋 [interview_questions.json](./results/2026-05-18_v1_baseline/interview_questions.json) · [service_concept.md](./results/2026-05-18_v1_baseline/service_concept.md) · [filter_config.json](./results/2026-05-18_v1_baseline/filter_config.json) — 이 회차 입력 스냅샷
 
 ---
 

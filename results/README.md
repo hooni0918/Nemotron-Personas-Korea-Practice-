@@ -8,6 +8,21 @@
 |---|---|---|---|---|---|
 | [v1](./2026-05-18_v1_baseline/SUMMARY.md) | 2026-05-18 | baseline | 50명 | 8×11 | 경쟁자는 다른 앱이 아니라 **현재의 무료 워크플로우** (인스타+메모+네이버지도). Q2 모호 진단. |
 
+## 회차별 파일 빠른 접근
+
+### v1 baseline (2026-05-18)
+
+- 📄 [**SUMMARY.md**](./2026-05-18_v1_baseline/SUMMARY.md) — 회차 요약 (가설·인사이트·다음 액션)
+- **입력 스냅샷**
+  - [service_concept.md](./2026-05-18_v1_baseline/service_concept.md) — 검증한 서비스 컨셉
+  - [interview_questions.json](./2026-05-18_v1_baseline/interview_questions.json) — 던진 질문지
+  - [filter_config.json](./2026-05-18_v1_baseline/filter_config.json) — 페르소나 필터 조건
+- **출력**
+  - [analysis_report.md](./2026-05-18_v1_baseline/analysis_report.md) — 사람용 진단 리포트 (가장 자주 볼 파일)
+  - [interview_responses.csv](./2026-05-18_v1_baseline/interview_responses.csv) — 550행 raw 응답 (GitHub이 표로 렌더링)
+  - [interview_responses.json](./2026-05-18_v1_baseline/interview_responses.json) — 페르소나별 대화 묶음
+  - [analysis_report.json](./2026-05-18_v1_baseline/analysis_report.json) — 분석 raw
+
 ## 다음 회차 만드는 법
 
 1. **폴더 생성**: `results/YYYY-MM-DD_v{n}_{label}/`
