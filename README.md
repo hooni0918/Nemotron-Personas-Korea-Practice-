@@ -20,6 +20,10 @@ parquet     target.json   responses     report.md
 | `02_run_interview.py` | personas + `interview_questions.json` | `results/interview_responses.{csv,json}` |
 | `03_analyze_results.py` | responses | `results/analysis_report.{md,json}` |
 
+## 회차별 결과 아카이브
+
+각 회차의 입력(`service_concept` · `interview_questions` · `filter_config`)과 출력(`responses` · `analysis` · `SUMMARY`)은 `results/YYYY-MM-DD_v{n}_{label}/` 폴더에 함께 박제됨. 회차 인덱스는 [`results/README.md`](./results/README.md) 참고.
+
 ---
 
 ## 사용법

@@ -1,0 +1,15 @@
+{
+  "_comment": "인스타 핫플 저장 앱 타겟: 20~30대, 수도권/광역시 중심. 인스타 활발 사용층 가정.",
+
+  "age_min": 20,
+  "age_max": 39,
+  "sex": null,
+  "education_levels": null,
+  "occupation_keywords": null,
+  "provinces": ["서울", "경기", "인천", "부산", "대구", "대전", "광주", "울산", "세종"],
+  "marital_status": null,
+  "metro_only": false,
+
+  "sample_size": 50,
+  "random_seed": 42
+}
