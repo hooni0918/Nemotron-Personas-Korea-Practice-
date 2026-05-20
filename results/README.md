@@ -6,9 +6,23 @@
 
 | 회차 | 날짜 | 라벨 | 페르소나 | 질문×턴 | 핵심 발견 |
 |---|---|---|---|---|---|
+| [v2](./2026-05-20_v2_place-scrap-personas/SUMMARY.md) | 2026-05-20 | place-scrap-personas | 3 타입 × 5회 | 20×1 (Q11 누락) | PDF에서 의도한 3 타겟의 행동·페인 분화가 LLM에서 그대로 재현됨. MVP1 가치 검증. 그룹 기능은 의외로 **실행형 > 수집형**. |
 | [v1](./2026-05-18_v1_baseline/SUMMARY.md) | 2026-05-18 | baseline | 50명 | 8×11 | 경쟁자는 다른 앱이 아니라 **현재의 무료 워크플로우** (인스타+메모+네이버지도). Q2 모호 진단. |
 
 ## 회차별 파일 빠른 접근
+
+### v2 place-scrap-personas (2026-05-20)
+
+- 📄 [**SUMMARY.md**](./2026-05-20_v2_place-scrap-personas/SUMMARY.md) — 페르소나 타입별 응답 분포 + MVP 기능 검증
+- **입력 스냅샷**
+  - [service_concept.md](./2026-05-20_v2_place-scrap-personas/service_concept.md) — 장소 스크랩 서비스 컨셉
+  - [interview_questions.json](./2026-05-20_v2_place-scrap-personas/interview_questions.json) — Q1-Q20 6섹션 질문지
+  - [place_scrap_personas.json](./2026-05-20_v2_place-scrap-personas/place_scrap_personas.json) — 실행/수집/즉흥 3 페르소나
+- **출력**
+  - [analysis_report.md](./2026-05-20_v2_place-scrap-personas/analysis_report.md) — 자동 진단 리포트
+  - [interview_responses.csv](./2026-05-20_v2_place-scrap-personas/interview_responses.csv) — 285행 raw
+  - [interview_responses.json](./2026-05-20_v2_place-scrap-personas/interview_responses.json) — 페르소나별 대화
+  - [analysis_report.json](./2026-05-20_v2_place-scrap-personas/analysis_report.json) — 분석 raw
 
 ### v1 baseline (2026-05-18)
 
