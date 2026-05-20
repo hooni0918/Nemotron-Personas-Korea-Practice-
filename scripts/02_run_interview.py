@@ -8,6 +8,7 @@
 - results/interview_responses.csv  (페르소나×질문×턴 단위 행)
 - results/interview_responses.json (페르소나별 전체 대화)
 """
+import argparse
 import csv
 import json
 import os
@@ -20,7 +21,7 @@ from dotenv import load_dotenv
 from tqdm import tqdm
 
 ROOT = Path(__file__).parent.parent
-PERSONAS_PATH = ROOT / "data" / "target_personas.json"
+DEFAULT_PERSONAS_PATH = ROOT / "data" / "target_personas.json"
 QUESTIONS_PATH = ROOT / "config" / "interview_questions.json"
 RESULTS_CSV = ROOT / "results" / "interview_responses.csv"
 RESULTS_JSON = ROOT / "results" / "interview_responses.json"
@@ -36,24 +37,58 @@ RETRY_BACKOFF = 20       # 첫 재시도 대기 시간(초). 매 재시도마다
 
 
 def build_system_prompt(persona: dict, service_context: str) -> str:
-    """페르소나 컬럼들을 합쳐 1인칭 롤플레잉 시스템 프롬프트를 만든다."""
-    parts = []
-    if persona.get("persona"):
-        parts.append(persona["persona"])
-    if persona.get("professional_persona"):
-        parts.append(persona["professional_persona"])
-    if persona.get("family_persona"):
-        parts.append(persona["family_persona"])
-    persona_text = "\n\n".join(parts)
+    """페르소나 필드를 1인칭 롤플레잉 시스템 프롬프트로 합친다.
 
-    demographics = (
-        f"- 성별: {persona.get('sex')}\n"
-        f"- 나이: {persona.get('age')}\n"
-        f"- 거주지: {persona.get('district')}\n"
-        f"- 직업: {persona.get('occupation')}\n"
-        f"- 학력: {persona.get('education_level')}\n"
-        f"- 혼인 상태: {persona.get('marital_status')}"
-    )
+    두 가지 페르소나 스키마를 모두 지원한다:
+    - Nemotron 스타일: persona / professional_persona / family_persona + 인구통계 컬럼들
+    - 커스텀 스타일(v2 이후): summary / behaviors / pain_points / needs / trigger + name·motto
+    페르소나에 어떤 키가 있느냐에 따라 자연스럽게 분기된다.
+    """
+    # 공통 인구통계 (있는 것만)
+    demo_lines = []
+    if persona.get("name"):
+        demo_lines.append(f"- 이름: {persona['name']}")
+    if persona.get("sex"):
+        demo_lines.append(f"- 성별: {persona['sex']}")
+    if persona.get("age") is not None:
+        demo_lines.append(f"- 나이: {persona['age']}")
+    if persona.get("district"):
+        demo_lines.append(f"- 거주지: {persona['district']}")
+    if persona.get("occupation"):
+        demo_lines.append(f"- 직업: {persona['occupation']}")
+    if persona.get("education_level"):
+        demo_lines.append(f"- 학력: {persona['education_level']}")
+    if persona.get("marital_status"):
+        demo_lines.append(f"- 혼인 상태: {persona['marital_status']}")
+    demographics = "\n".join(demo_lines)
+
+    # 인물 묘사 — 커스텀 스키마가 있으면 그쪽을, 없으면 Nemotron 컬럼을 사용
+    if persona.get("summary") or persona.get("behaviors") or persona.get("pain_points"):
+        sections = []
+        if persona.get("type_label"):
+            sections.append(f"[타입] {persona['type_label']} ({persona.get('type_summary', '')})".strip())
+        if persona.get("motto"):
+            sections.append(f"[한 줄 멘트] \"{persona['motto']}\"")
+        if persona.get("summary"):
+            sections.append(f"[요약]\n{persona['summary']}")
+        if persona.get("behaviors"):
+            bullets = "\n".join(f"- {b}" for b in persona["behaviors"])
+            sections.append(f"[주요 행동]\n{bullets}")
+        if persona.get("pain_points"):
+            bullets = "\n".join(f"- {p}" for p in persona["pain_points"])
+            sections.append(f"[페인포인트]\n{bullets}")
+        if persona.get("needs"):
+            bullets = "\n".join(f"- {n}" for n in persona["needs"])
+            sections.append(f"[서비스 니즈]\n{bullets}")
+        if persona.get("trigger"):
+            sections.append(f"[사용 트리거] {persona['trigger']}")
+        persona_text = "\n\n".join(sections)
+    else:
+        parts = []
+        for key in ("persona", "professional_persona", "family_persona"):
+            if persona.get(key):
+                parts.append(persona[key])
+        persona_text = "\n\n".join(parts)
 
     return f"""당신은 아래에 묘사된 인물입니다. 1인칭으로, 그 인물의 성격과 처지에 맞게 솔직하게 답하세요.
 가식적으로 "좋다", "괜찮다"라고 둘러대지 말고, 실제로 그 인물이 느낄 만한 솔직한 감정과 망설임을 그대로 표현하세요.
@@ -179,6 +214,20 @@ def save_results(all_results: list):
 
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--personas",
+        default=str(DEFAULT_PERSONAS_PATH),
+        help="페르소나 JSON 파일 경로 (기본: data/target_personas.json)",
+    )
+    parser.add_argument(
+        "--repeats",
+        type=int,
+        default=1,
+        help="페르소나당 반복 실행 횟수 (소수 페르소나 시뮬에서 응답 다양성 확보용)",
+    )
+    args = parser.parse_args()
+
     load_dotenv(ROOT / ".env")
     api_key = os.getenv("GEMINI_API_KEY")
     if not api_key:
@@ -188,15 +237,25 @@ def main():
         )
     genai.configure(api_key=api_key)
 
-    with open(PERSONAS_PATH, encoding="utf-8") as f:
-        personas = json.load(f)
+    with open(args.personas, encoding="utf-8") as f:
+        base_personas = json.load(f)
     with open(QUESTIONS_PATH, encoding="utf-8") as f:
         q_config = json.load(f)
+
+    # 반복 실행: 페르소나 N명을 R회씩 → 각 인스턴스에 -r{i} suffix 붙여 별도 응답으로 기록
+    personas = []
+    for p in base_personas:
+        for r in range(args.repeats):
+            instance = dict(p)
+            if args.repeats > 1:
+                instance["uuid"] = f"{p.get('uuid', 'persona')}-r{r+1}"
+            personas.append(instance)
 
     questions = q_config["questions"]
     service_context = q_config.get("service_context", "")
 
-    print(f"페르소나: {len(personas)}명")
+    print(f"페르소나 파일: {args.personas}")
+    print(f"페르소나: {len(base_personas)}명 × {args.repeats}회 = {len(personas)} 인터뷰")
     print(f"질문: {len(questions)}개 ({sum(len(q.get('turns', [q.get('text')])) for q in questions)}턴)")
     print(f"모델: single={MODEL_SINGLE_TURN}, multi={MODEL_MULTI_TURN}")
     print(f"동시 호출: {MAX_WORKERS}\n")
