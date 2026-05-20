@@ -1,0 +1,51 @@
+{
+  "_comment": "v3 — Nemotron 페르소나를 PDF 3 타겟 유형(실행/수집/즉흥)에 매칭해 자동 추출. 직업 키워드 + 인구통계 필터로 라벨링.",
+  "_strategy": "20~39세·수도권/광역시 23,903명 풀에서, 직업명 키워드로 1차 라벨링한 뒤 라벨별로 random sample. 같은 페르소나는 한 번씩만 인터뷰.",
+
+  "demographics": {
+    "age_min": 20,
+    "age_max": 39,
+    "provinces": ["서울", "경기", "인천", "부산", "대구", "대전", "광주", "울산", "세종"]
+  },
+
+  "labels": [
+    {
+      "id": "A_marketer",
+      "title": "마케팅·콘텐츠·디자인 직군",
+      "maps_to_pdf_type": "실행형/수집형 잠재 후보 (이서연·김지윤 매칭)",
+      "occupation_keywords": [
+        "마케팅", "광고", "홍보", "브랜드", "상품 기획", "기획 및 마케팅",
+        "디자이너", "시각 디자인", "콘텐츠", "미디어",
+        "영상", "에디터", "편집자", "크리에이터", "PD",
+        "공연·영화", "음반 기획"
+      ],
+      "exclude_occupation_keywords": ["우편", "감리"],
+      "sample_size": 40
+    },
+    {
+      "id": "B_engineer",
+      "title": "IT·개발·엔지니어링 직군",
+      "maps_to_pdf_type": "즉흥형 잠재 후보 (박민호 매칭)",
+      "occupation_keywords": [
+        "소프트웨어", "프로그래머", "프로그램", "정보 시스템",
+        "데이터 분석", "데이터 관리", "데이터 설계",
+        "정보 보안", "시스템 소프트웨어", "산업 특화 소프트웨어",
+        "개발자", "엔지니어"
+      ],
+      "exclude_occupation_keywords": [],
+      "sample_size": 30
+    },
+    {
+      "id": "C_general",
+      "title": "확장 타겟 (기타 20~30대 도시 거주)",
+      "maps_to_pdf_type": "잠재 일반 타겟 — 친구 초대 등 간접 유입 검증용",
+      "occupation_keywords": [],
+      "exclude_occupation_keywords": [],
+      "sample_size": 50,
+      "_note": "A/B에 해당하지 않는 나머지에서 무작위 추출. 일반 사용자 베이스라인 역할."
+    }
+  ],
+
+  "random_seed": 42,
+  "total_target": 120
+}
