@@ -1,124 +1,111 @@
-# Interview Runs
+# 인터뷰 회차 모음
 
-회차별 인터뷰 시뮬레이션 결과 아카이브. **각 회차는 독립된 폴더**에 입력(`service_concept` · `interview_questions` · `filter_config`)과 출력(`responses` · `analysis`)을 함께 박제해, 나중에 무엇을 바꿔서 어떤 결과가 나왔는지 비교할 수 있게 했음.
+회차별 결과 폴더 모음. **각 회차의 입력(서비스 컨셉·질문지·페르소나)과 출력(응답·분석·요약)이 같이 박제**되어 있어, 어떤 변화가 어떤 결과를 낳았는지 한눈에 비교할 수 있습니다.
 
-## 회차 인덱스
+> 회차를 가로지르는 종합 인사이트는 [`INSIGHTS.md`](../INSIGHTS.md) 참고.
 
-| 회차 | 날짜 | 라벨 | 페르소나 | 질문×턴 | 핵심 발견 |
+---
+
+## 📅 회차 인덱스
+
+| 회차 | 날짜 | 무엇이 달랐나 | 페르소나 | 응답 수 | 한 줄 결론 |
 |---|---|---|---|---|---|
-| [v3](./2026-05-20_v3_nemotron-matched/SUMMARY.md) | 2026-05-20 | nemotron-matched | **120명** (A40·B30·C50) × 1회 | 20×1 | 120명 중 **105명(87.5%)이 MVP1 "매우 편할"** 만장일치. 그룹 기능은 **A_marketer가 가장 강한 반응** (v2 발견 재현). |
-| [v2](./2026-05-20_v2_place-scrap-personas/SUMMARY.md) | 2026-05-20 | place-scrap-personas | 3 타입 × 5회 | 20×1 (Q11 누락) | PDF에서 의도한 3 타겟의 행동·페인 분화가 LLM에서 그대로 재현됨. MVP1 가치 검증. 그룹 기능은 의외로 **실행형 > 수집형**. |
-| [v1](./2026-05-18_v1_baseline/SUMMARY.md) | 2026-05-18 | baseline | 50명 | 8×11 | 경쟁자는 다른 앱이 아니라 **현재의 무료 워크플로우** (인스타+메모+네이버지도). Q2 모호 진단. |
+| **[v3](./2026-05-20_v3_nemotron-matched/SUMMARY.md)** | 2026-05-20 | Nemotron 풀에서 직업 매칭으로 120명 자동 추출 | 120명 (A40·B30·C50) × 1회 | 2,280 | **120명 중 105명(87.5%)이 "매우 편할" — MVP1 만장일치 검증** |
+| [v2](./2026-05-20_v2_place-scrap-personas/SUMMARY.md) | 2026-05-20 | 사용자 직접 설계한 PDF 3 타겟 페르소나 + Q1-Q20 종합 질문지 | 3 타입 × 5회 = 15 | 285 | PDF 의도한 페르소나 행동·페인 차이가 LLM에서 깔끔히 분화 |
+| [v1](./2026-05-18_v1_baseline/SUMMARY.md) | 2026-05-18 | 첫 베이스라인. Nemotron 랜덤 50명 + 8질문 | 50명 | 165 (유효) | 경쟁자는 다른 앱이 아니라 **현재의 무료 워크플로우** (인스타 저장함·메모·스크린샷) |
 
-## 회차별 파일 빠른 접근
+---
 
-### v3 nemotron-matched (2026-05-20)
+## 📂 각 회차 파일 빠르게 보기
 
-- 📄 [**SUMMARY.md**](./2026-05-20_v3_nemotron-matched/SUMMARY.md) — 120명 라벨별 응답 분포 + MVP1 검증
-- **입력 스냅샷**
-  - [v3_match_config.json](./2026-05-20_v3_nemotron-matched/v3_match_config.json) — 라벨 키워드·샘플 사이즈
-  - [place_scrap_personas_v3.json](./2026-05-20_v3_nemotron-matched/place_scrap_personas_v3.json) — 추출된 120명
-  - [interview_questions.json](./2026-05-20_v3_nemotron-matched/interview_questions.json) — Q1-Q20 (v2와 동일)
-  - [service_concept.md](./2026-05-20_v3_nemotron-matched/service_concept.md) — 서비스 컨셉 (v2와 동일)
-- **출력**
-  - [analysis_report.md](./2026-05-20_v3_nemotron-matched/analysis_report.md) — 자동 진단 리포트
-  - [interview_responses.csv](./2026-05-20_v3_nemotron-matched/interview_responses.csv) — 2,280행 raw
-  - [interview_responses.json](./2026-05-20_v3_nemotron-matched/interview_responses.json) — 페르소나별 응답
-  - [analysis_report.json](./2026-05-20_v3_nemotron-matched/analysis_report.json) — 분석 raw
+비개발자가 먼저 봐야 할 파일은 **SUMMARY.md**. 그 안에서 자세한 데이터로 펼쳐 들어갑니다.
 
-### v2 place-scrap-personas (2026-05-20)
+### v3 — Nemotron 매칭 120명 (2026-05-20)
 
-- 📄 [**SUMMARY.md**](./2026-05-20_v2_place-scrap-personas/SUMMARY.md) — 페르소나 타입별 응답 분포 + MVP 기능 검증
-- **입력 스냅샷**
-  - [service_concept.md](./2026-05-20_v2_place-scrap-personas/service_concept.md) — 장소 스크랩 서비스 컨셉
-  - [interview_questions.json](./2026-05-20_v2_place-scrap-personas/interview_questions.json) — Q1-Q20 6섹션 질문지
-  - [place_scrap_personas.json](./2026-05-20_v2_place-scrap-personas/place_scrap_personas.json) — 실행/수집/즉흥 3 페르소나
-- **출력**
-  - [analysis_report.md](./2026-05-20_v2_place-scrap-personas/analysis_report.md) — 자동 진단 리포트
-  - [interview_responses.csv](./2026-05-20_v2_place-scrap-personas/interview_responses.csv) — 285행 raw
-  - [interview_responses.json](./2026-05-20_v2_place-scrap-personas/interview_responses.json) — 페르소나별 대화
-  - [analysis_report.json](./2026-05-20_v2_place-scrap-personas/analysis_report.json) — 분석 raw
+- 🟢 [**SUMMARY.md — 한 줄 결론과 5가지 발견**](./2026-05-20_v3_nemotron-matched/SUMMARY.md)
+- 📊 [`analysis_report.md`](./2026-05-20_v3_nemotron-matched/analysis_report.md) — 자동 진단 + 응답 샘플
+- 📑 [`interview_responses.csv`](./2026-05-20_v3_nemotron-matched/interview_responses.csv) — 2,280행 응답 (GitHub이 표로 자동 렌더링)
+- 📋 입력 스냅샷: [`v3_match_config.json`](./2026-05-20_v3_nemotron-matched/v3_match_config.json) · [`place_scrap_personas_v3.json`](./2026-05-20_v3_nemotron-matched/place_scrap_personas_v3.json) · [`interview_questions.json`](./2026-05-20_v3_nemotron-matched/interview_questions.json) · [`service_concept.md`](./2026-05-20_v3_nemotron-matched/service_concept.md)
 
-### v1 baseline (2026-05-18)
+### v2 — 사용자 설계 3 페르소나 (2026-05-20)
 
-- 📄 [**SUMMARY.md**](./2026-05-18_v1_baseline/SUMMARY.md) — 회차 요약 (가설·인사이트·다음 액션)
-- **입력 스냅샷**
-  - [service_concept.md](./2026-05-18_v1_baseline/service_concept.md) — 검증한 서비스 컨셉
-  - [interview_questions.json](./2026-05-18_v1_baseline/interview_questions.json) — 던진 질문지
-  - [filter_config.json](./2026-05-18_v1_baseline/filter_config.json) — 페르소나 필터 조건
-- **출력**
-  - [analysis_report.md](./2026-05-18_v1_baseline/analysis_report.md) — 사람용 진단 리포트 (가장 자주 볼 파일)
-  - [interview_responses.csv](./2026-05-18_v1_baseline/interview_responses.csv) — 550행 raw 응답 (GitHub이 표로 렌더링)
-  - [interview_responses.json](./2026-05-18_v1_baseline/interview_responses.json) — 페르소나별 대화 묶음
-  - [analysis_report.json](./2026-05-18_v1_baseline/analysis_report.json) — 분석 raw
+- 🟢 [**SUMMARY.md — 페르소나 타입별 분화 검증**](./2026-05-20_v2_place-scrap-personas/SUMMARY.md)
+- 📊 [`analysis_report.md`](./2026-05-20_v2_place-scrap-personas/analysis_report.md)
+- 📑 [`interview_responses.csv`](./2026-05-20_v2_place-scrap-personas/interview_responses.csv) — 285행
+- 📋 입력: [`place_scrap_personas.json`](./2026-05-20_v2_place-scrap-personas/place_scrap_personas.json) · [`interview_questions.json`](./2026-05-20_v2_place-scrap-personas/interview_questions.json) · [`service_concept.md`](./2026-05-20_v2_place-scrap-personas/service_concept.md)
 
-## 다음 회차 만드는 법
+### v1 — 첫 베이스라인 (2026-05-18)
 
-1. **폴더 생성**: `results/YYYY-MM-DD_v{n}_{label}/`
-   - 라벨은 그 회차의 핵심 변경을 한 단어로 (`baseline`, `q2-fixed`, `price-3way` 등)
-2. **입력 스냅샷 복사**:
-   ```bash
-   RUN=results/2026-05-20_v2_q2-fixed
-   mkdir -p "$RUN"
-   cp config/service_concept.md config/interview_questions.json config/filter_config.json "$RUN/"
-   ```
-3. **인터뷰 실행**:
-   ```bash
-   python scripts/02_run_interview.py
-   python scripts/03_analyze_results.py
-   mv results/interview_responses.{csv,json} results/analysis_report.{md,json} "$RUN/"
-   ```
-4. **SUMMARY.md 작성** — 아래 템플릿 사용
-5. **이 README의 인덱스 표에 한 줄 추가**
-6. 커밋 푸시
+- 🟢 [**SUMMARY.md — 첫 시뮬 결과와 시행착오**](./2026-05-18_v1_baseline/SUMMARY.md)
+- 📊 [`analysis_report.md`](./2026-05-18_v1_baseline/analysis_report.md)
+- 📑 [`interview_responses.csv`](./2026-05-18_v1_baseline/interview_responses.csv) — 550행 (대부분 API 쿼터 에러)
+- 📋 입력: [`interview_questions.json`](./2026-05-18_v1_baseline/interview_questions.json) · [`service_concept.md`](./2026-05-18_v1_baseline/service_concept.md) · [`filter_config.json`](./2026-05-18_v1_baseline/filter_config.json)
 
-## SUMMARY.md 템플릿
+---
 
-```markdown
-# v{n} {label} — YYYY-MM-DD
+<details>
+<summary><strong>👨‍💻 개발자용 — 새 회차 만드는 법</strong></summary>
 
-> 이번 회차에서 무엇을·왜 바꿨는지 한 줄.
+### 1. 폴더 생성
+```bash
+RUN=results/$(date +%F)_v4_{label}
+mkdir -p "$RUN"
+```
+라벨은 그 회차의 핵심 변경을 한 단어로 (`q2-fixed`, `price-3way`, `multi-turn-deep` 등).
 
-## 메타
-| 항목 | 값 |
-|---|---|
-| 실행일 | YYYY-MM-DD |
-| 페르소나 | N명 (필터 조건 요약) |
-| 질문 | N개 (M턴) |
-| 모델 | ... |
-| 총 호출 | N건 |
-| ERROR | N건 |
-| 소요 | M분 S초 |
-
-## 이전 회차 대비 변경점
-- [v{n-1}](../YYYY-MM-DD_v{n-1}_*/SUMMARY.md) 대비 무엇을 어떻게 바꿨고, 왜?
-
-## 검증하려던 가설
-| # | 가설 | 결과 |
-|---|---|---|
-| 1 | ... | ✅ / ⚠️ / ❌ |
-
-## 핵심 인사이트
-### 🔥 가장 큰 발견
-...
-
-### ⚠️ 손볼 질문 / 다음 가설
-
-## 다음 회차로 가져갈 액션
-- [ ] ...
-
-## 박제된 입력 / 출력
-(이 폴더 안의 파일 목록)
+### 2. 입력 스냅샷 복사
+```bash
+cp config/service_concept.md config/interview_questions.json \
+   config/v3_match_config.json data/place_scrap_personas_v3.json "$RUN/"
 ```
 
-## 결과 비교 팁
+### 3. 인터뷰 + 분석 실행
+```bash
+python scripts/02_run_interview.py --personas data/<file>.json --repeats N
+python scripts/03_analyze_results.py
+mv results/interview_responses.{csv,json} results/analysis_report.{md,json} "$RUN/"
+```
 
-회차 간 비교를 빠르게 보려면:
+### 4. SUMMARY.md 작성
+
+가장 최신인 [v3 SUMMARY.md](./2026-05-20_v3_nemotron-matched/SUMMARY.md)의 구조를 그대로 따라가는 게 가장 빠릅니다:
+- **한 줄 결론** 맨 위
+- **누구한테 무엇을 물었나** (간단)
+- **핵심 발견 N가지** (각 발견에 표 + 💡 시사점)
+- **페르소나가 한 말** (직접 인용 2~3개)
+- **다음에 해야 할 것** (비즈니스 액션 / 다음 회차 액션 분리)
+- **결과 읽을 때 주의할 점**
+- **기술 메타 데이터** (펼치기)
+- **raw 데이터 보기** (파일 링크)
+
+### 5. 인덱스 표·INSIGHTS·메인 README 갱신
+
+- `results/README.md`의 회차 인덱스 표에 한 줄 추가
+- `INSIGHTS.md`에 회차 가로지르는 패턴 업데이트
+- 메인 `README.md`의 "최신 회차 빠른 접근" 블록 v3 → v4로 교체
+
+### 6. 파일 단위로 잘게 커밋
 
 ```bash
-# Q1 응답 길이가 회차별로 어떻게 변했는지
+git add results/<run>/v3_match_config.json && git commit -m "v4 archive: snapshot v3_match_config.json"
+git add results/<run>/<personas>.json && git commit -m "v4 archive: snapshot personas"
+# … 파일별로
+```
+
+### 7. 푸시 + PR
+
+```bash
+git push -u origin v4/<branch>
+gh pr create --title "v4: <한 줄 요약>" --body "<SUMMARY 인용>"
+```
+
+### 회차 간 빠른 비교 jq
+
+```bash
 for f in results/*/analysis_report.json; do
   echo "$f"
   jq '.questions[] | select(.question_id=="Q1") | {n, avg_length}' "$f"
 done
 ```
+
+</details>
